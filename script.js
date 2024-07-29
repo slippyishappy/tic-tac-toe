@@ -23,7 +23,7 @@ function startGame() {
         let chosenRow = prompt(`What row would you like to place ${player.marker}?`);
         let chosenColumn = prompt(`What about the column? ${player.marker}`);
 
-        if (gameBoard[parseInt(chosenRow) - 1][parseInt(chosenColumn) - 1] === 0) {
+        if (gameBoard[parseInt(chosenRow) - 1][parseInt(chosenColumn) - 1].length === 0) {
             gameBoard[parseInt(chosenRow) - 1][parseInt(chosenColumn) - 1] = player.marker;
             console.log(gameBoard);
         } else {
