@@ -1,5 +1,6 @@
 function setGame() {
     let boardContainer = document.querySelector('.board');
+    let boardArray = [];
     let resultDisplay = document.querySelector('.resultDisplay');
     const rows = 3;
     const columns = 3;
@@ -20,11 +21,13 @@ function setGame() {
     // Creates the board/grid in the DOM
     let createGrid = () => {
         for (let i = 0; i < rows; i++) {
+            boardArray[i] = [];
             for (let j = 0; j < columns; j++) {
                 cell = document.createElement("button");
                 cell.classList.add(`cell`);
                 cell.dataset.row = i;
                 cell.dataset.column = j;
+                boardArray[i][j] = '';
 
                 // Adds an event listener for each one of the cells created
                 cell.addEventListener('click', (event) => {
@@ -32,6 +35,8 @@ function setGame() {
                     let rowCell = clickedCell.dataset.row;
                     let columnCell = clickedCell.dataset.column;
                     if (clickedCell.innerHTML === '') {
+                        boardArray[rowCell][columnCell] = `${currentPlayer}`;
+                        console.log(boardArray);
                         clickedCell.innerHTML = `${currentPlayer}`;
                         switchTurns();
                     } else {
