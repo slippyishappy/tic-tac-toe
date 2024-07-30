@@ -1,4 +1,5 @@
 let start = document.querySelector('#start');
+let restartBtn = document.querySelector("#restart");
 
 function setGame() {
     let boardContainer = document.querySelector('#container');
@@ -112,10 +113,25 @@ function setGame() {
         }
     };
 
+    restartBtn.addEventListener("click", () => {
+        const cells = document.querySelectorAll(".cell");
+
+        cells.forEach((cell) => {
+            cell.innerHTML = '';
+            let rowCell = cell.dataset.row;
+            let columnCell = cell.dataset.column;
+            boardArray[rowCell][columnCell] = '';
+            resultDisplay.textContent = '';
+            currentPlayer = players[0];
+        });
+        gameActive = true;
+    });
+
     createGrid();
 }
 
 start.addEventListener('click', () => {
     setGame();
     start.style.visibility = 'hidden';
+    restartBtn.removeAttribute('hidden');
 });
