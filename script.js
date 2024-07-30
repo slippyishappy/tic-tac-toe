@@ -77,6 +77,12 @@ function setGame() {
                     let rowCell = clickedCell.dataset.row;
                     let columnCell = clickedCell.dataset.column;
 
+                    if (currentPlayer === 'X') {
+                        clickedCell.style.color = "#E3651D";
+                    } else if (currentPlayer === 'O') {
+                        clickedCell.style.color = "#005B41";
+                    }
+
                     if (clickedCell.innerHTML === '') {
                         boardArray[rowCell][columnCell] = `${currentPlayer}`;
                         console.log(boardArray);

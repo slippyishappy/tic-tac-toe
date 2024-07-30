@@ -1,25 +1,44 @@
-@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap');
+@import url(https://db.onlinewebfonts.com/c/9d23cda2fd2a195a8467e0967debd4d3?family=Cera+Round+Pro+Bold);
 
 :root {
-    --font: "Fredoka", sans-serif;
+    --font: "Cera Round Pro Bold", sans-serif;
+    --color-light: #FBF6E2;
 }
 
 body {
     font-family: var(--font);
     font-weight: 500;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    color: var(--color-light);
+    background-color: #131842;
 }
 
 h1 {
-    font-size: 48px;
+    font-size: 3em;
 }
 
 .board {
     display: grid;
     grid-template-columns: repeat(3, 120px);
     grid-template-rows: repeat(3, 120px);
-    gap: 6px;
+    gap: 1em;
 }
 
-.cell{
-    font-size: 32px;
+.cell {
+    border-style: none;
+    font-family: var(--font);
+    font-size: 3em;
+    border-radius: 0.3em;
+    color: #131842;
+    background-color: #ECCEAE;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+}
+
+.resultDisplay {
+    font-size: 1.5em;
 }
