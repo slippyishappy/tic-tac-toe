@@ -1,103 +1,50 @@
-function Player(marker) {
-    let score = 0;
-    const addScore = () => score++;
-    const getScore = () => score;
-
-    return {marker, getScore, addScore};
-};
-
 function setGame() {
-    let gameBoard = [];
+    let boardContainer = document.querySelector('.board');
+    let resultDisplay = document.querySelector('.resultDisplay');
     const rows = 3;
     const columns = 3;
-    
-    for (let i = 0; i < rows; i++) {
-        gameBoard[i] = [];
-        for (let j = 0; j < columns; j++) {
-            gameBoard[i][j] = [];
-        }
-    }
+    let cell;
 
-    let putMarker = (player) => {
-        let chosenRow = prompt(`What row would you like to place ${player.marker}?`);
-        let chosenColumn = prompt(`What about the column? ${player.marker}`);
-
-        if (gameBoard[parseInt(chosenRow) - 1][parseInt(chosenColumn) - 1].length === 0) {
-            gameBoard[parseInt(chosenRow) - 1][parseInt(chosenColumn) - 1] = player.marker;
-            console.log(gameBoard);
-        } else {
-            alert('Cell is full, please choose another cell');
-            putMarker(player);
-        }
-    }
-    return {gameBoard, putMarker};
-};
-
-function gameController() {
-    const playerX = Player('X');
-    const playerO = Player('O');
-
+    // Sets up the two players, an array of them, and the current player to switch later on.
+    const playerX = 'X';
+    const playerO = 'O';
     let players = [playerX, playerO];
-
     let currentPlayer = players[0];
 
-    let game = setGame();
-
-    const switchTurns = () => {
+    // Function to switch turns for the players
+    let switchTurns = () => {
         currentPlayer = currentPlayer === players[0] ? players[1] : players[0];
+        resultDisplay.textContent = `It's player ${currentPlayer}'s turn`;
+    }
+
+    // Creates the board/grid in the DOM
+    let createGrid = () => {
+        for (let i = 0; i < rows; i++) {
+            for (let j = 0; j < columns; j++) {
+                cell = document.createElement("button");
+                cell.classList.add(`cell`);
+                cell.dataset.row = i;
+                cell.dataset.column = j;
+
+                // Adds an event listener for each one of the cells created
+                cell.addEventListener('click', (event) => {
+                    const clickedCell = event.target;
+                    let rowCell = clickedCell.dataset.row;
+                    let columnCell = clickedCell.dataset.column;
+                    if (clickedCell.innerHTML === '') {
+                        clickedCell.innerHTML = `${currentPlayer}`;
+                        switchTurns();
+                    } else {
+                        resultDisplay.textContent = "The cell is full, please choose another one!";
+                    }
+                });
+
+                boardContainer.appendChild(cell);
+            }
+        }
     };
 
-    const playGame = () => {
-        let result;
-        do {
-            console.log(`Player ${currentPlayer.marker}'s turn`);
-            game.putMarker(currentPlayer);
-            result = checkWinner();
-            if (result) {
-                if (result === 'tie') {
-                    console.log("It's a tie!");
-                } else {
-                    console.log(`Player ${result} wins!`);
-                }
-            } else {
-                switchTurns();
-            }
-        } while (!result);
-    };
+    createGrid();
+}
 
-    const checkWinner = () => {
-        for (let i = 0; i < 3; i++) {
-            if (game.gameBoard[i][0] && game.gameBoard[i][0] ===
-                game.gameBoard[i][1] && game.gameBoard[i][0] === 
-                game.gameBoard[i][2]) {
-                return game.gameBoard[i][0];
-            }
-        }
-    
-        // Check columns
-        for (let j = 0; j < 3; j++) {
-            if (game.gameBoard[0][j] && 
-                game.gameBoard[0][j] === game.gameBoard[1][j] && 
-                game.gameBoard[0][j] === game.gameBoard[2][j]) {
-                return game.gameBoard[0][j];
-            }
-        }
-
-            // Check diagonals
-        if (game.gameBoard[0][0] && 
-            game.gameBoard[0][0] === game.gameBoard[1][1] && 
-            game.gameBoard[0][0] === game.gameBoard[2][2]) {
-            return game.gameBoard[0][0];
-            }
-
-        if (game.gameBoard[0][2] && 
-            game.gameBoard[0][2] === game.gameBoard[1][1] && 
-            game.gameBoard[0][2] === game.gameBoard[2][0]) {
-            return game.gameBoard[0][2];
-        }
-        }
-
-    playGame();
-};
-
-gameController();
+setGame();
