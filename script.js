@@ -1,5 +1,7 @@
+let start = document.querySelector('#start');
+
 function setGame() {
-    let boardContainer = document.querySelector('.board');
+    let boardContainer = document.querySelector('#container');
     let boardArray = [];
     let resultDisplay = document.querySelector('.resultDisplay');
     const rows = 3;
@@ -59,6 +61,7 @@ function setGame() {
 
     // Creates the board/grid in the DOM
     let createGrid = () => {
+        boardContainer.classList.add('board');
         for (let i = 0; i < rows; i++) {
             boardArray[i] = [];
             for (let j = 0; j < columns; j++) {
@@ -112,4 +115,7 @@ function setGame() {
     createGrid();
 }
 
-setGame();
+start.addEventListener('click', () => {
+    setGame();
+    start.style.visibility = 'hidden';
+});

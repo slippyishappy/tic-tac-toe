@@ -16,6 +16,7 @@ body {
     font-size: 16px;
     color: var(--color-light);
     background-color: #131842;
+    box-sizing: border-box;
 }
 
 h1 {
@@ -37,8 +38,43 @@ h1 {
     color: #131842;
     background-color: #ECCEAE;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+    cursor: pointer;
+    border: transparent;
 }
 
 .resultDisplay {
     font-size: 1.5em;
+}
+
+#start {
+    background-color: #E68369;
+    color: #131842;
+    border-style: none;
+    border: solid transparent;
+    border-radius: 0.8em;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: var(--font);
+    font-size: 1.2em;
+    letter-spacing: .8px;
+    margin: 0;
+    outline: none;
+    overflow: visible;
+    padding: 13px 16px;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+#restart {
+    background-color: #E68369;
+    border-style: none;
+    border: solid transparent;
+    border-radius: 0.8em;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1.5em;
 }
