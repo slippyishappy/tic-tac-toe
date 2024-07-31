@@ -1,5 +1,6 @@
 let start = document.querySelector('#start');
 let restartBtn = document.querySelector("#restart");
+let turnContainer = document.querySelector('.turn');
 
 function setGame() {
     let boardContainer = document.querySelector('#container');
@@ -9,17 +10,27 @@ function setGame() {
     const columns = 3;
     let cell;
     let gameActive = true;
+    let x = document.querySelector('#x');
+    let o = document.querySelector('#o');
 
     // Sets up the two players, an array of them, and the current player to switch later on.
     const playerX = 'X';
     const playerO = 'O';
     let players = [playerX, playerO];
     let currentPlayer = players[0];
+    x.classList.add('current-turn');
 
     // Function to switch turns for the players
     let switchTurns = () => {
         currentPlayer = currentPlayer === players[0] ? players[1] : players[0];
         resultDisplay.textContent = `It's player ${currentPlayer}'s turn`;
+        if (currentPlayer === 'X') {
+            x.classList.add('current-turn');
+            o.classList.remove('current-turn');
+        } else {
+            o.classList.add('current-turn');
+            x.classList.remove('current-turn');
+        }
     }
 
     let checkWinner = () => {
@@ -132,6 +143,7 @@ function setGame() {
 
 start.addEventListener('click', () => {
     setGame();
-    start.style.visibility = 'hidden';
+    start.setAttribute('hidden', "");
     restartBtn.removeAttribute('hidden');
+    turnContainer.removeAttribute('hidden');
 });

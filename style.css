@@ -53,9 +53,6 @@ h1 {
     border: solid transparent;
     border-radius: 0.8em;
     cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     font-family: var(--font);
     font-size: 1.2em;
     letter-spacing: .8px;
@@ -74,4 +71,33 @@ h1 {
     border-radius: 0.8em;
     cursor: pointer;
     padding: 1.5em;
+}
+
+.turn {
+    background-color: #E68369;
+    color: #131842;
+    padding: 0.4em;
+    font-size: 2em;
+    border-radius: 0.2em;
+    margin-bottom: 1em;
+}
+
+.current-turn {
+    background-color: #ECCEAE;
+    border-radius: 0.3em;
+}
+
+.markers {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.markers > * {
+    padding: 0.4em;
+    height: 32px;
+    width: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
