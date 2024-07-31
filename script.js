@@ -1,6 +1,9 @@
 let start = document.querySelector('#start');
 let restartBtn = document.querySelector("#restart");
 let turnContainer = document.querySelector('.turn');
+let nameX = document.querySelector('#player-x');
+let nameO = document.querySelector('#player-o');
+let nameContainer = document.querySelector('form');
 
 function setGame() {
     let boardContainer = document.querySelector('#container');
@@ -14,8 +17,15 @@ function setGame() {
     let o = document.querySelector('#o');
 
     // Sets up the two players, an array of them, and the current player to switch later on.
-    const playerX = 'X';
-    const playerO = 'O';
+    const playerX = {
+        marker: 'X',
+        name: nameX.value.trim() !== "" ? nameX.value.trim() : "Player X"
+    };
+    const playerO = {
+        marker: 'O',
+        name: nameO.value.trim() !== "" ? nameO.value.trim() : "Player O"
+    };
+
     let players = [playerX, playerO];
     let currentPlayer = players[0];
     x.classList.add('current-turn');
@@ -23,8 +33,8 @@ function setGame() {
     // Function to switch turns for the players
     let switchTurns = () => {
         currentPlayer = currentPlayer === players[0] ? players[1] : players[0];
-        resultDisplay.textContent = `It's player ${currentPlayer}'s turn`;
-        if (currentPlayer === 'X') {
+        resultDisplay.textContent = `It's ${currentPlayer.name}'s turn`;
+        if (currentPlayer.marker === 'X') {
             x.classList.add('current-turn');
             o.classList.remove('current-turn');
         } else {
@@ -92,16 +102,16 @@ function setGame() {
                     let rowCell = clickedCell.dataset.row;
                     let columnCell = clickedCell.dataset.column;
 
-                    if (currentPlayer === 'X') {
+                    if (currentPlayer.marker === 'X') {
                         clickedCell.style.color = "#E3651D";
-                    } else if (currentPlayer === 'O') {
+                    } else if (currentPlayer.marker === 'O') {
                         clickedCell.style.color = "#005B41";
                     }
 
                     if (clickedCell.innerHTML === '') {
-                        boardArray[rowCell][columnCell] = `${currentPlayer}`;
+                        boardArray[rowCell][columnCell] = `${currentPlayer.marker}`;
                         console.log(boardArray);
-                        clickedCell.innerHTML = `${currentPlayer}`;
+                        clickedCell.innerHTML = `${currentPlayer.marker}`;
                         
                         const winner = checkWinner();
                         if (winner) {
@@ -109,7 +119,11 @@ function setGame() {
                             if (winner === 'tie') {
                                 resultDisplay.textContent = "It's a tie!";
                             } else {
-                                resultDisplay.textContent = `Player ${winner} wins!`;
+                                if (winner === 'X') {
+                                    resultDisplay.textContent = `${playerX.name} wins!`;
+                                } else if (winner === 'O') {
+                                    resultDisplay.textContent = `${playerO.name} wins!`;
+                                }
                             }
                         } else {
                             switchTurns();
@@ -135,6 +149,8 @@ function setGame() {
             resultDisplay.textContent = '';
             currentPlayer = players[0];
         });
+        x.classList.add('current-turn');
+        o.classList.remove('current-turn');
         gameActive = true;
     });
 
@@ -146,4 +162,5 @@ start.addEventListener('click', () => {
     start.setAttribute('hidden', "");
     restartBtn.removeAttribute('hidden');
     turnContainer.removeAttribute('hidden');
+    nameContainer.setAttribute('hidden', "");
 });
